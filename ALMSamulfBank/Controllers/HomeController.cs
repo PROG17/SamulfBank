@@ -10,9 +10,17 @@ namespace ALMSamulfBank.Controllers
 {
     public class HomeController : Controller
     {
+        public BankRepository BankRepo { get; set; }
+
+        public HomeController()
+        {
+            BankRepo = new BankRepository();
+            BankRepo.Mock();
+        }
+
         public IActionResult Index()
         {
-            return View();
+            return View(BankRepo);
         }
 
         public IActionResult About()
