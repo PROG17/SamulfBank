@@ -10,7 +10,7 @@
     {
         <li>
             <div>
-                <h5>@customer.Name</h5>
+                <h5>#@customer.Id @customer.Name</h5>
                 @foreach (var account in customer.Accounts)
                 {
                     <p>Account: @account.AccountNumber - @account.Balance kr</p>
