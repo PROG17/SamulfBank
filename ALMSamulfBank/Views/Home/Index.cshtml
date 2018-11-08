@@ -3,9 +3,9 @@
 @{
     ViewData["Title"] = "Home Page";
 }
-
+<h1>@ViewData["streng"]</h1>
 <h3>Customers</h3>
-<ol>
+<ul>
     @foreach (var customer in Model.Customers)
     {
         <li>
@@ -13,11 +13,11 @@
                 <h5>@customer.Name</h5>
                 @foreach (var account in customer.Accounts)
                 {
-                    <p>@account.AccountNumber: @account.Balance</p>
+                    <p>Account: @account.AccountNumber - @account.Balance kr</p>
                 }
             </div>
         </li>
     }
-</ol>
+</ul>
 
 

@@ -10,13 +10,7 @@ namespace ALMSamulfBank.Controllers
 {
     public class HomeController : Controller
     {
-        public BankRepository BankRepo { get; set; }
-
-        public HomeController()
-        {
-            BankRepo = new BankRepository();
-            BankRepo.Mock();
-        }
+        public static BankRepository BankRepo { get; set; } = new BankRepository();
 
         public IActionResult Index()
         {
@@ -26,7 +20,6 @@ namespace ALMSamulfBank.Controllers
         public IActionResult About()
         {
             ViewData["Message"] = "Your application description page.";
-
             return View();
         }
 

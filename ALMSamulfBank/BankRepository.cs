@@ -12,6 +12,7 @@ namespace ALMSamulfBank
         public BankRepository()
         {
             Customers = new List<Customer>();
+            Mock();
         }
 
         public BankRepository Mock()
