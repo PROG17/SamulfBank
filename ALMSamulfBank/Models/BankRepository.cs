@@ -105,33 +105,62 @@ namespace ALMSamulfBank
             return this;
         }
 
-        public ResponseMessage Withdraw(string accountString, decimal amount)
+        public ResponseMessage Withdraw(int accountNumber, decimal amount)
         {
             var responseMessage = new ResponseMessage();
-            var accountParsed = int.TryParse(accountString, out int accountNumber);
             var account = Accounts.Where(a => a.AccountNumber == accountNumber).FirstOrDefault();
 
-            if (account != null)
+            if (amount < 0)
             {
-                if (account.Balance >= amount)
-                {
-                    account.Balance -= amount;
-                    responseMessage.Success = true;
-                    responseMessage.Message = $"Successfull withdrawal. New balance on account {accountString}: {account.Balance}";
-                }
-                else
-                {
-                    responseMessage.Message = $"Balance too low on Account {accountString}. Balance: {account.Balance}. Amount {amount}.";
-                }
+                responseMessage.Message = $"Amount can't be below 0";
             }
             else
             {
-                responseMessage.Message = $"Account with account number {accountString} not found";
+                if (account != null)
+                {
+                    if (account.Balance >= amount)
+                    {
+                        account.Balance -= amount;
+                        responseMessage.Success = true;
+                        responseMessage.Message = $"Successfull withdrawal. New balance on account {accountNumber}: {account.Balance}";
+                    }
+                    else
+                    {
+                        responseMessage.Message = $"Balance too low on Account {accountNumber}. Balance: {account.Balance}. Amount {amount}.";
+                    }
+                }
+                else
+                {
+                    responseMessage.Message = $"Account with account number {accountNumber} not found";
+                }
             }
+           
+            return responseMessage;
+        }
 
+        public ResponseMessage Deposit(int accountNumber, decimal amount)
+        {
+            var responseMessage = new ResponseMessage();
+            var account = Accounts.Where(a => a.AccountNumber == accountNumber).FirstOrDefault();
 
-
-
+            if(amount < 0)
+            {
+                responseMessage.Message = $"Amount can't be below 0";
+            }
+            else
+            {
+                if (account != null)
+                {
+                    account.Balance += amount;
+                    responseMessage.Success = true;
+                    responseMessage.Message = $"Successfull deposit. New balance on account {accountNumber}: {account.Balance}";
+                }
+                else
+                {
+                    responseMessage.Message = $"Account with account number {accountNumber} not found";
+                }
+            }
+            
             return responseMessage;
         }
     }
