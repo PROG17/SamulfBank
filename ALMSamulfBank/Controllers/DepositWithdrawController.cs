@@ -17,14 +17,17 @@ namespace ALMSamulfBank.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Deposit(DWViewmodel model)
+        public async Task<ResponseMessage> Deposit(DWViewmodel model)
         {
-            return View();
+            var response = BankRepo.Deposit(model.AccountNumber, model.Amount);
+            return response;
         }
 
-        public async Task<IActionResult> Withdraw(DWViewmodel model)
+        public async Task<ResponseMessage> Withdraw(DWViewmodel model)
         {
-            return View();
+            var response = BankRepo.Withdraw(model.AccountNumber, model.Amount);
+
+            return response;
         }
 
     }
