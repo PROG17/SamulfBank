@@ -1,5 +1,23 @@
-﻿@{
+﻿@model ALMSamulfBank.BankRepository
+
+@{
     ViewData["Title"] = "Home Page";
 }
+<h1>@ViewData["streng"]</h1>
+<h3>Customers</h3>
+<ul>
+    @foreach (var customer in Model.Customers)
+    {
+        <li>
+            <div>
+                <h5>#@customer.Id @customer.Name</h5>
+                @foreach (var account in customer.Accounts)
+                {
+                    <p>Account: @account.AccountNumber - @account.Balance kr</p>
+                }
+            </div>
+        </li>
+    }
+</ul>
 
 
