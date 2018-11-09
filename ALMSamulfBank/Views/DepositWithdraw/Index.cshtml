@@ -1,0 +1,29 @@
+﻿@model List<ALMSamulfBank.Account>
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Deposit/Withdraw - Index</h2>
+
+<div style="background-color:burlywood; height:500px;">
+    <label>Account: </label> 
+    <input type="number" id="accountInput" />
+    <select class="btn" id="accountSelect">
+        <option disabled selected value="default"> Accounts </option>
+        @foreach (var account in Model)
+        {
+            <option value=@account.AccountNumber>#@account.AccountNumber</option>
+        }
+    </select>
+
+
+
+
+
+
+    <input id="amountInput" type="number" placeholder="Amount" min="0" />
+
+        <button id="depositBtn">Deposit</button>
+        <button id="withdrawBtn">Withdraw</button>
+</div>
+

@@ -3,12 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace ALMSamulfBank
+namespace ALMSamulfBank.Models
 {
-    public class Account
+    public class DWViewmodel
     {
+        public decimal Amount        { get; set; }
         public int     AccountNumber { get; set; }
-        public decimal Balance       { get; set; }
-        public string  Owner         { get; set; }
     }
 }

@@ -10,7 +10,7 @@ namespace ALMSamulfBank.Controllers
 {
     public class HomeController : Controller
     {
-        public static BankRepository BankRepo { get; set; } = new BankRepository();
+        private BankRepository BankRepo = BankRepository.Instance;
 
         public IActionResult Index()
         {
@@ -20,6 +20,10 @@ namespace ALMSamulfBank.Controllers
         public IActionResult About()
         {
             ViewData["Message"] = "Your application description page.";
+
+            var li = BankRepo.Customers.Where(p => p.Id == 3).FirstOrDefault();
+            li.Name = "HoolaBandola";
+
             return View();
         }
 
