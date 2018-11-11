@@ -44,20 +44,61 @@
     });
 
     $(document).on('change', '#accountSelect', function () {
-
         $('#accountInput').val($('#accountSelect').val());
+
+        var acc = $('#accountSelect').val();
+        if (acc !== null) {
+            ShowDetails(acc);
+        }
+        else {
+            HideDetails();
+        }
     });
 
     $(document).on('keyup', '#accountInput', function () {
         $('#accountSelect').val($('#accountInput').val());
+        var acc = $('#accountSelect').val();
+
+        if (acc !== null) {
+            ShowDetails(acc);
+        }
+        else {
+            HideDetails();
+        }
     });
 
 });
+
+function ShowDetails(acc) {
+
+    var data = {
+        accNo: acc
+    };
+    $.post('/DepositWithdraw/ShowDetails', data, function (result) {
+
+        var ChosenAccount = result.accounts.filter(function (account) {
+            var rightAccount = account.accountNumber.toString() === acc;
+            if (rightAccount) {
+                return account;
+            }
+        })[0];
+
+        $('#detailsHead').text('Owner: ' + result.name);
+        $('#detailsAccount').text('Account: ' + ChosenAccount.accountNumber.toString() + ' (balance: ' + ChosenAccount.balance.toString() + 'kr)');
+
+    });
+}
+
+function HideDetails() {
+    $('#detailsHead').text('');
+    $('#detailsAccount').text('');
+}
 
 function clearInputs() {
     $('#amountInput').val('');
     $('#accountInput').val('');
     $('#accountSelect').val('');
+    HideDetails();
 
 }
 
