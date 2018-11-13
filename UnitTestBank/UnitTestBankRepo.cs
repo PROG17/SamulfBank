@@ -10,6 +10,10 @@ namespace UnitTestBank
     [TestClass]
     public class UnitTestBankRepo
     {
+        public UnitTestBankRepo()
+        {
+
+        }
         [TestMethod]
         public void MockTest()
         {
@@ -124,5 +128,21 @@ namespace UnitTestBank
             Assert.AreEqual(expected, newBalance);
 
         }
+        //varför göra mer kod en vad som behövs :P
+        [TestMethod]
+        public void TransferMoney() { 
+        BankRepository bankrepo = BankRepository.Instance;
+            int FromAccountId = 1000;
+            int ToAccountId = 1001;
+            decimal AmountToTransfer = 100;
+        var accFrom = bankrepo.Accounts.Where(a => a.AccountNumber == FromAccountId).FirstOrDefault();
+        var accTo = bankrepo.Accounts.Where(a => a.AccountNumber == ToAccountId).FirstOrDefault();
+        accFrom.Balance = AmountToTransfer;
+            var moneyOnTargetAccount = accTo.Balance;  
+            accFrom.TransferMoney(accTo, AmountToTransfer);
+
+            Assert.AreEqual(accTo.Balance, (moneyOnTargetAccount + AmountToTransfer));
+        }
+
     }
 }
