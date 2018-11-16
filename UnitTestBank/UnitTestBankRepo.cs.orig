@@ -128,6 +128,7 @@ namespace UnitTestBank
             Assert.AreEqual(expected, newBalance);
 
         }
+<<<<<<< HEAD
 
 
         //varför göra mer kod en vad som behövs :P
@@ -145,11 +146,25 @@ namespace UnitTestBank
             accFrom.Balance          = AmountToTransfer;
             var moneyOnTargetAccount = accTo.Balance;
 
+=======
+        //varför göra mer kod en vad som behövs :P
+        [TestMethod]
+        public void TransferMoney() { 
+        BankRepository bankrepo = BankRepository.Instance;
+            int FromAccountId = 1000;
+            int ToAccountId = 1001;
+            decimal AmountToTransfer = 100;
+        var accFrom = bankrepo.Accounts.Where(a => a.AccountNumber == FromAccountId).FirstOrDefault();
+        var accTo = bankrepo.Accounts.Where(a => a.AccountNumber == ToAccountId).FirstOrDefault();
+        accFrom.Balance = AmountToTransfer;
+            var moneyOnTargetAccount = accTo.Balance;  
+>>>>>>> origin/4-transfer
             accFrom.TransferMoney(accTo, AmountToTransfer);
 
             Assert.AreEqual(accTo.Balance, (moneyOnTargetAccount + AmountToTransfer));
         }
 
+<<<<<<< HEAD
         [TestMethod]
         public void TransferMoneyRollback()
         {
@@ -168,5 +183,7 @@ namespace UnitTestBank
             Assert.AreEqual(accFrom.Balance, 500);
         }
 
+=======
+>>>>>>> origin/4-transfer
     }
 }

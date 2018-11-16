@@ -30,5 +30,15 @@ namespace ALMSamulfBank.Controllers
             return response;
         }
 
+        public async Task<Customer> ShowDetails(int accNo)
+        {
+            var customer = BankRepo.Customers.Where(c => c.Accounts.Any(a => a.AccountNumber == accNo)).FirstOrDefault();
+
+            return customer;
+        }
+        public IActionResult TransferMoney()
+        {
+            return View();
+        }
     }
 }
