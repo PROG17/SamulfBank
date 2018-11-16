@@ -1,0 +1,26 @@
+version: 1.0.{build}
+
+image: Visual Studio 2017
+configuration: Release
+platform: Any CPU
+
+environment:
+  webapp_folder: .\ALMSamulfBank
+  webapp_proj: $(webapp_folder)\ALMSamulfBank.csproj
+  webapp_package: ALMSamulfBank.$(APPVEYOR_BUILD_VERSION)-$(APPVEYOR_REPO_BRANCH)
+
+before_build:
+  - ps: dotnet restore
+
+build:
+  verbosity: minimal
+  project: ALMSamulfBank.sln
+
+after_build:
+  - ps: .\package.ps1 -projectPath $env:webapp_proj -packageName $env:webapp_package -absoluteRepoDirectory $env:APPVEYOR_BUILD_FOLDER
+
+artifacts:
+  - path: '**\$(webapp_package).zip'
+
+
+  
