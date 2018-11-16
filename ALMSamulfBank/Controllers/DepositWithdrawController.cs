@@ -36,6 +36,9 @@ namespace ALMSamulfBank.Controllers
 
             return customer;
         }
-
+        public IActionResult TransferMoney()
+        {
+            return View();
+        }
     }
 }
