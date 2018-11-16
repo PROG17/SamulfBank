@@ -34,7 +34,7 @@ namespace UnitTestBank
 
             //Set the amount of the account 
             account.Balance = 100m;
-            
+
             //Withdraws 90, 10 remains.
             BankRepo.Withdraw(accountNo, 90m);
             decimal expected = 10m;
@@ -51,14 +51,14 @@ namespace UnitTestBank
 
             //Get the account 
             int accountNo = 1000;
-            var account   = BankRepo.Accounts.Where(a => a.AccountNumber == accountNo).FirstOrDefault();
+            var account = BankRepo.Accounts.Where(a => a.AccountNumber == accountNo).FirstOrDefault();
 
             //Set the amount of the account 
             account.Balance = 100m;
 
             //Try to withdraws 200, fails and 100 still remains.
             BankRepo.Withdraw(accountNo, 200m);
-            decimal expected   = 100m;
+            decimal expected = 100m;
             decimal newBalance = account.Balance;
 
             Assert.AreEqual(expected, newBalance);
@@ -72,14 +72,14 @@ namespace UnitTestBank
 
             //Get the account 
             int accountNo = 1000;
-            var account   = BankRepo.Accounts.Where(a => a.AccountNumber == accountNo).FirstOrDefault();
+            var account = BankRepo.Accounts.Where(a => a.AccountNumber == accountNo).FirstOrDefault();
 
             //Set the amount of the account 
             account.Balance = 100m;
 
             //Deposit 90, balance is now 190.
             BankRepo.Deposit(accountNo, 90m);
-            decimal expected   = 190m;
+            decimal expected = 190m;
             decimal newBalance = account.Balance;
 
             Assert.AreEqual(expected, newBalance);
@@ -128,20 +128,44 @@ namespace UnitTestBank
             Assert.AreEqual(expected, newBalance);
 
         }
+
+
         //varför göra mer kod en vad som behövs :P
         [TestMethod]
-        public void TransferMoney() { 
-        BankRepository bankrepo = BankRepository.Instance;
-            int FromAccountId = 1000;
-            int ToAccountId = 1001;
+        public void TransferMoney()
+        {
+            BankRepository bankrepo  = BankRepository.Instance;
+            int FromAccountId        = 1000;
+            int ToAccountId          = 1001;
             decimal AmountToTransfer = 100;
-        var accFrom = bankrepo.Accounts.Where(a => a.AccountNumber == FromAccountId).FirstOrDefault();
-        var accTo = bankrepo.Accounts.Where(a => a.AccountNumber == ToAccountId).FirstOrDefault();
-        accFrom.Balance = AmountToTransfer;
-            var moneyOnTargetAccount = accTo.Balance;  
+
+            var accFrom = bankrepo.Accounts.Where(a => a.AccountNumber == FromAccountId).FirstOrDefault();
+            var accTo   = bankrepo.Accounts.Where(a => a.AccountNumber == ToAccountId).FirstOrDefault();
+
+            accFrom.Balance          = AmountToTransfer;
+            var moneyOnTargetAccount = accTo.Balance;
+
             accFrom.TransferMoney(accTo, AmountToTransfer);
 
             Assert.AreEqual(accTo.Balance, (moneyOnTargetAccount + AmountToTransfer));
+        }
+
+        [TestMethod]
+        public void TransferMoneyRollback()
+        {
+            BankRepository bankrepo = BankRepository.Instance;
+            int FromAccountId        = 1000;
+            int ToAccountId          = 1001;
+
+            var accFrom = bankrepo.Accounts.Where(a => a.AccountNumber == FromAccountId).FirstOrDefault();
+            var accTo = bankrepo.Accounts.Where(a => a.AccountNumber == ToAccountId).FirstOrDefault();
+
+            decimal AmountToTransfer = 1000;
+            accFrom.Balance          = 500;
+
+            accFrom.TransferMoney(accTo, AmountToTransfer);
+
+            Assert.AreEqual(accFrom.Balance, 500);
         }
 
     }

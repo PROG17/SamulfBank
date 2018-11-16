@@ -24,7 +24,7 @@ namespace ALMSamulfBank.Controllers
             var accFrom = bank.Accounts.Where(a => a.AccountNumber == FromAccountId).FirstOrDefault();
             var accTo = bank.Accounts.Where(a => a.AccountNumber == ToAccountId).FirstOrDefault();
 
-            if(accFrom != null || accTo != null)
+            if(accFrom != null && accTo != null)
             {
                  Message = accFrom.TransferMoney(accTo, Amount);
                 return View(Message);
