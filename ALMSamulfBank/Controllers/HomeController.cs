@@ -20,7 +20,7 @@ namespace ALMSamulfBank.Controllers
         public IActionResult About()
         {
             ViewData["Message"] = "Your application description page.";
-
+            var hej = "hej";
             var li = BankRepo.Customers.Where(p => p.Id == 3).FirstOrDefault();
             li.Name = "HoolaBandola";
 
