@@ -10,7 +10,11 @@
     {
         <li>
             <div>
-                <h5>#@customer.Id @customer.Name</h5>
+                <h5>#@customer.Id @customer.Name </h5>
+                <form asp-controller="Home" asp-action="SendInfo" method="post">
+                    <input type="hidden" value=@customer.Id name="id" />
+                    <button type="submit">Send Info</button>
+                </form>
                 @foreach (var account in customer.Accounts)
                 {
                     <p>Account: @account.AccountNumber - @account.Balance kr</p>

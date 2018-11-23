@@ -24,7 +24,19 @@ namespace ALMSamulfBank.Controllers
             var li = BankRepo.Customers.Where(p => p.Id == 3).FirstOrDefault();
             li.Name = "HoolaBandolaBella";
 
-            return View();
+            return RedirectToAction("Index");
+        }
+
+        [HttpPost]
+        public IActionResult SendInfo(int id)
+        {
+            var customer = BankRepo.Customers.Where(c => c.Id == id).FirstOrDefault();
+            if(customer != null)
+            {
+                MailTrapSender.Send(customer);
+            }
+
+            return RedirectToAction("Index");
         }
 
         public IActionResult Contact()
