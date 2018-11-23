@@ -1,4 +1,4 @@
-﻿@model ALMSamulfBank.BankRepository
+﻿@model ALMSamulfBank.BankViewModel
 
 @{
     ViewData["Title"] = "Home Page";
@@ -6,7 +6,7 @@
 <h1>@ViewData["streng"]</h1>
 <h3>Customers</h3>
 <ul>
-    @foreach (var customer in Model.Customers)
+    @foreach (var customer in Model.Bank.Customers)
     {
         <li>
             <div>

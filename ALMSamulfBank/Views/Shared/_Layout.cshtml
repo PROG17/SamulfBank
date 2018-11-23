@@ -1,4 +1,7 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.Extensions.Configuration
+@inject IConfiguration Config
+
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -27,7 +30,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand"><span><img src="~/dollar.ico" style="height:25px;" /></span>SAMULFBANK</a>
+                <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand"><span><img src="~/dollar.ico" style="height:25px;" /></span> @(Config.GetValue<string>("AppTitle"))</a>
             </div>
             @*meny*@
             <div class="navbar-collapse collapse">
@@ -37,7 +40,7 @@
                     <li><a asp-area="" asp-controller="Transfer" asp-action="Index">Transfer</a></li>
                     <li><a asp-area="" asp-controller="Home" asp-action="About">Send Mail</a></li>
                 </ul>
-            </div>  
+            </div>
         </div>
     </nav>
     <div class="container body-content">

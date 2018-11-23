@@ -5,6 +5,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using ALMSamulfBank.Models;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Configuration;
 
 namespace ALMSamulfBank.Controllers
 {
@@ -12,9 +14,21 @@ namespace ALMSamulfBank.Controllers
     {
         private BankRepository BankRepo = BankRepository.Instance;
 
+        private IHostingEnvironment _environment;
+        private readonly IConfiguration _config;
+
+        public HomeController(IHostingEnvironment environment, IConfiguration config)
+        {
+            _environment = environment;
+            _config = config;
+        }
+
         public IActionResult Index()
         {
-            return View(BankRepo);
+            var model = new BankViewModel();
+            model.Bank = BankRepo;
+            model.Env = _environment.EnvironmentName;
+            return View(model);
         }
 
         public IActionResult About()
