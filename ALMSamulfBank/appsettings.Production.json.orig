@@ -1,0 +1,25 @@
+{
+  "Logging": {
+    "IncludeScopes": false,
+    "LogLevel": {
+      "Default": "Debug",
+      "System": "Information",
+      "Microsoft": "Information"
+    }
+  },
+<<<<<<< HEAD
+  "AppTitle": "SAMULFBANK - PRODUCTION"
+=======
+  "AppTitle": "SAMULFBANK - PRODUCTION",
+  "Environment": "Production",
+
+  "Email": {
+    "Smtp": {
+      "Host": "smtp.sendgrid.net",
+      "Port": 587,
+      "Username": "",
+      "Password": ""
+    }
+  }
+>>>>>>> remove config stuff
+}

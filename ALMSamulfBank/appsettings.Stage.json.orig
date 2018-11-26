@@ -1,0 +1,25 @@
+{
+  "Logging": {
+    "IncludeScopes": false,
+    "LogLevel": {
+      "Default": "Debug",
+      "System": "Information",
+      "Microsoft": "Information"
+    }
+  },
+<<<<<<< HEAD
+  "AppTitle": "SAMULFBANK - STAGE"
+=======
+  "AppTitle": "SAMULFBANK - STAGE",
+  "Environment": "Stage",
+
+  "Email": {
+    "Smtp": {
+      "Host": "smtp.mailtrap.io",
+      "Port": 2525,
+      "Username": "",
+      "Password": ""
+    }
+  }
+>>>>>>> remove config stuff
+}
