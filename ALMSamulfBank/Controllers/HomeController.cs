@@ -7,6 +7,9 @@ using Microsoft.AspNetCore.Mvc;
 using ALMSamulfBank.Models;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
+using System.Net.Mail;
+using System.Net;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace ALMSamulfBank.Controllers
 {
@@ -45,9 +48,9 @@ namespace ALMSamulfBank.Controllers
         public IActionResult SendInfo(int id)
         {
             var customer = BankRepo.Customers.Where(c => c.Id == id).FirstOrDefault();
-            if(customer != null)
+            if (customer != null)
             {
-                MailTrapSender.Send(customer);
+                EmailSender(customer);
             }
 
             return RedirectToAction("Index");
@@ -63,6 +66,37 @@ namespace ALMSamulfBank.Controllers
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
+
+        private void EmailSender(Customer customer)
+        {
+            using (var smtpClient = HttpContext.RequestServices.GetRequiredService<SmtpClient>())
+            {
+                MailMessage mail = new MailMessage()
+                {
+                    From = new MailAddress("from@SamulfBank.com"),
+                    Subject = "MailTest",
+                    Body = BuildMessage(customer),
+                    IsBodyHtml = true
+                };
+                mail.To.Add("Support@SamulfBank.se");
+                smtpClient.Send(mail);
+            }
+        }
+
+        private string BuildMessage(Customer customer)
+        {
+            var row1 = $"<h3>Customer #{customer.Id}</h3>";
+            var row2 = $"<h4>{customer.Name}</h4>";
+            var row3 = $"<h4>Accounts ({customer.Accounts.Count()})</h4>";
+            var accs = "";
+            foreach (var item in customer.Accounts)
+            {
+                accs += $"<li>#{item.AccountNumber} Balance: {item.Balance} kr</li>";
+            }
+            var row4 = $"<ul>{accs}</ul>";
+
+            return (row1 + row2 + row3 + row4);
         }
     }
 }
