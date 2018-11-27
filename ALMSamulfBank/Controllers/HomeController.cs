@@ -74,12 +74,12 @@ namespace ALMSamulfBank.Controllers
             {
                 MailMessage mail = new MailMessage()
                 {
-                    From = new MailAddress("from@SamulfBank.com"),
-                    Subject = "MailTest",
+                    From = new MailAddress($"{_environment.EnvironmentName}.samulfbank@nackademin.se"),
+                    Subject = $"MailTest({_environment.EnvironmentName}) - {customer.Name}",
                     Body = BuildMessage(customer),
                     IsBodyHtml = true
                 };
-                mail.To.Add("Support@SamulfBank.se");
+                mail.To.Add("samuel.OlofssonJonsson@yh.nackademin.se");
                 smtpClient.Send(mail);
             }
         }
