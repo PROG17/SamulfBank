@@ -39,12 +39,6 @@
                     <li><a asp-area="" asp-controller="DepositWithdraw" asp-action="Index">Deposit/Withdraw</a></li>
                     <li><a asp-area="" asp-controller="Transfer" asp-action="Index">Transfer</a></li>
                     <li><a asp-area="" asp-controller="Home" asp-action="About">Send Mail</a></li>
-                    <li>
-                        <p>@(Config.GetValue<string>("Email:Smtp:Host"))</p>
-                        <p>@(Config.GetValue<string>("Email:Smtp:Port"))</p>
-                        <p>@(Config.GetValue<string>("Email:Smtp:Username"))</p>
-                        <p>@(Config.GetValue<string>("Email:Smtp:Password"))</p>
-                    </li>
                 </ul>
             </div>
         </div>
